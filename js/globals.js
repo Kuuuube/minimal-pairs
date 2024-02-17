@@ -1,5 +1,5 @@
 let current_correct_answer_button = -1;
-let curront_correct_answer = "";
+let current_correct_answer = "";
 let active_pitch_type = "";
 
 let pairs_audio = {};
