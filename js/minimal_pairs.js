@@ -92,19 +92,27 @@ function graded_buttons() {
 }
 
 function output_accent_plain_text(raw_pronunciation, accented_mora) {
-    const HT = "ぁぃぅぇぉゃゅょゎ" + "ァィゥェォヵㇰヶㇱㇲㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮ";
-    let n = ""
-    let r = 0
+    const small_kana = "ぁぃぅぇぉゃゅょゎァィゥェォヵㇰヶㇱㇲㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮ";
+    let output = "";
+    let mora = 0;
     let i = 0;
-    for (; i < raw_pronunciation.length; ) {
-        for (n += raw_pronunciation.charAt(i),
-        i++,
-        r++; i < raw_pronunciation.length && HT.includes(raw_pronunciation.charAt(i)); )
-            n += raw_pronunciation.charAt(i),
+    while (i < raw_pronunciation.length) {
+        output += raw_pronunciation.charAt(i);
+
+        i++;
+        mora++;
+
+        while (i < raw_pronunciation.length && small_kana.includes(raw_pronunciation.charAt(i))) {
+            output += raw_pronunciation.charAt(i);
             i++;
-        r === accented_mora && (n += "＼")
+        }
+
+        if (mora === accented_mora) {
+            output += "＼";
+        }
     }
-    return n
+
+    return output;
 }
 
 async function fetch_random_pair() {
