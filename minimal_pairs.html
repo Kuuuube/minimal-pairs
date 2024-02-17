@@ -9,120 +9,114 @@
 </head>
 <body>
     <div id="app-container" class="p-4 container">
-        <div>
-            <div>
+        <div class="row">
+            <div class="order-2 order-lg-0 mt-3 mt-lg-0 col-lg-3 col-12">
+                <h4 class="text-center">History</h4>
+                <div class="overflow-auto hide-scrollbar max-vh-75 list-group" id="pairs-history">
+                </div>
+            </div>
+            <div class="text-center order-0 order-lg-1 col-lg-6 col-12" id="test-area">
+                <h3 class="text-center" id="kana-text"></h3>
+                <audio controls="" autoplay id="pair-sound-player" src="data:audio/ogg;base64" type="audio/mpeg"></audio>
+                <hr class="mt-2">
+                <div class="row" id="answer-button-row"></div>
+                <span id="continue-button"></span>
+            </div>
+            <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
+                <h4 class="text-center">Patterns</h4>
                 <div>
-                    <div class="row">
-                        <div class="order-2 order-lg-0 mt-3 mt-lg-0 col-lg-3 col-12">
-                            <h4 class="text-center">History</h4>
-                            <div class="overflow-auto hide-scrollbar max-vh-75 list-group" id="pairs-history">
-                            </div>
-                        </div>
-                        <div class="text-center order-0 order-lg-1 col-lg-6 col-12" id="test-area">
-                            <h3 class="text-center" id="kana-text"></h3>
-                            <audio controls="" autoplay id="pair-sound-player" src="data:audio/ogg;base64" type="audio/mpeg"></audio>
-                            <hr class="mt-2">
-                            <div class="row" id="answer-button-row"></div>
-                            <span id="continue-button"></span>
-                        </div>
-                        <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
-                            <h4 class="text-center">Patterns</h4>
-                            <div>
-                                <span id="all-answers">
-                                    <strong>All:</strong> 0 of 0 (0%)<br>
-                                </span>
-                                <span id="heiban-answers">
-                                    <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
-                                </span>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
-                                    <span class="text-muted">
-                                        <span class="visual-element-type-showPitchAccentDrops">
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span><span>◯</span></marking-element>
-                                                </visual-element>
-                                            </phrase-element>
-                                            <space-element></space-element>
-                                            <phrase-element>
-                                                <visual-element><span>｜</span><marking-element class="overline"></marking-element></visual-element>
-                                            </phrase-element>
-                                            <space-element></space-element>
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span></marking-element><marking-element class="drop"><span>◯</span></marking-element>
-                                                </visual-element>
-                                            </phrase-element>
-                                        </span>
-                                    </span>
-                                </div>
-                                <span id="atamadaka-answers">
-                                    <strong>Atamadaka:</strong> 0 of 0 (0%)
-                                </span>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
-                                    <span class="text-muted">
-                                        <span class="visual-element-type-showPitchAccentDrops">
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <marking-element class="drop"><span>◯</span></marking-element><span>◯</span><span>◯</span><span>◯</span>
-                                                </visual-element>
-                                            </phrase-element>
-                                        </span>
-                                    </span>
-                                </div>
-                                <span id="nakadaka-answers">
-                                    <strong>Nakadaka:</strong> 0 of 0 (0%)
-                                </span>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
-                                    <span class="text-muted">
-                                        <span class="visual-element-type-showPitchAccentDrops">
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <span>◯</span><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
-                                                </visual-element>
-                                            </phrase-element>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
-                                    <span class="text-muted">
-                                        <span class="visual-element-type-showPitchAccentDrops">
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
-                                                </visual-element>
-                                            </phrase-element>
-                                        </span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
-                                    <span class="text-muted">
-                                        <span class="visual-element-type-showPitchAccentDrops">
-                                            <phrase-element>
-                                                <visual-element>
-                                                    <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>◯</span>
-                                                </visual-element>
-                                            </phrase-element>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="display: none;">
-                                <h4 class="text-center mt-2">Other</h4>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
-                                    <span class="text-muted">Only Devoiced Words</span>
-                                </div>
-                                <div>
-                                    <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
-                                    <span class="text-muted">Muffle Audio</span>
-                                </div>
-                            </div>
-                        </div>
+                    <span id="all-answers">
+                        <strong>All:</strong> 0 of 0 (0%)<br>
+                    </span>
+                    <span id="heiban-answers">
+                        <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
+                    </span>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
+                        <span class="text-muted">
+                            <span class="visual-element-type-showPitchAccentDrops">
+                                <phrase-element>
+                                    <visual-element>
+                                        <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span><span>◯</span></marking-element>
+                                    </visual-element>
+                                </phrase-element>
+                                <space-element></space-element>
+                                <phrase-element>
+                                    <visual-element><span>｜</span><marking-element class="overline"></marking-element></visual-element>
+                                </phrase-element>
+                                <space-element></space-element>
+                                <phrase-element>
+                                    <visual-element>
+                                        <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span></marking-element><marking-element class="drop"><span>◯</span></marking-element>
+                                    </visual-element>
+                                </phrase-element>
+                            </span>
+                        </span>
+                    </div>
+                    <span id="atamadaka-answers">
+                        <strong>Atamadaka:</strong> 0 of 0 (0%)
+                    </span>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
+                        <span class="text-muted">
+                            <span class="visual-element-type-showPitchAccentDrops">
+                                <phrase-element>
+                                    <visual-element>
+                                        <marking-element class="drop"><span>◯</span></marking-element><span>◯</span><span>◯</span><span>◯</span>
+                                    </visual-element>
+                                </phrase-element>
+                            </span>
+                        </span>
+                    </div>
+                    <span id="nakadaka-answers">
+                        <strong>Nakadaka:</strong> 0 of 0 (0%)
+                    </span>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
+                        <span class="text-muted">
+                            <span class="visual-element-type-showPitchAccentDrops">
+                                <phrase-element>
+                                    <visual-element>
+                                        <span>◯</span><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
+                                    </visual-element>
+                                </phrase-element>
+                            </span>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
+                        <span class="text-muted">
+                            <span class="visual-element-type-showPitchAccentDrops">
+                                <phrase-element>
+                                    <visual-element>
+                                        <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
+                                    </visual-element>
+                                </phrase-element>
+                            </span>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" checked style="display: none;"></div>
+                        <span class="text-muted">
+                            <span class="visual-element-type-showPitchAccentDrops">
+                                <phrase-element>
+                                    <visual-element>
+                                        <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>◯</span>
+                                    </visual-element>
+                                </phrase-element>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div style="display: none;">
+                    <h4 class="text-center mt-2">Other</h4>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
+                        <span class="text-muted">Only Devoiced Words</span>
+                    </div>
+                    <div>
+                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
+                        <span class="text-muted">Muffle Audio</span>
                     </div>
                 </div>
             </div>
