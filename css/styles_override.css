@@ -11,3 +11,17 @@ body {
 #app-container {
     flex: 1;
 }
+
+input[type=checkbox]:not(:checked) ~ .spoiler {
+    background-color: #333;
+    color: transparent;
+    user-select: none;
+    transition: color .25s, background-color .25s;
+}
+
+input[type=checkbox]:checked ~ .spoiler { 
+  background-color: inherit;
+  color: inherit;
+  user-select: auto;
+  transition: color .25s, background-color .25s;
+}

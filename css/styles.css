@@ -16292,12 +16292,12 @@ textarea.form-control-lg {
     -moz-user-select: all !important;
     user-select: all !important;
 }
-.user-select-auto, .spoiler.active {
+.user-select-auto {
     -webkit-user-select: auto !important;
     -moz-user-select: auto !important;
     user-select: auto !important;
 }
-.user-select-none, .spoiler {
+.user-select-none {
     -webkit-user-select: none !important;
     -moz-user-select: none !important;
     user-select: none !important;
@@ -20633,27 +20633,6 @@ body phrase.active {
 .list-group-item-action.active, .list-group-item-action:active {
     background-color: rgba(13, 110, 252, .15);
     color: var(--bs-secondary-color);
-}
-.spoiler {
-    background: #333;
-    border-radius: .2em;
-    color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-    display: inline-block;
-    margin-bottom: 1px;
-    margin-top: 1px;
-    transition: color .25s, background-color .25s;
-}
-.spoiler>* {
-    opacity: 0;
-    transition: opacity .25s;
-}
-.spoiler.active {
-    background: rgba(127, 127, 127, .1);
-    color: inherit;
-}
-.spoiler.active>* {
-    opacity: 1;
 }
 .cloze-deletion {
     display: inline-block;
