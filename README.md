@@ -6,6 +6,8 @@ This is a backup of the コツ minimal pairs test. Please use [コツ (kotu.io)]
 
 - Fully rewritten backend to support static hosting.
 
+- No login required.
+
 - Contains less pairs.
 
 - Does not allow for filtering to specific pair types.
