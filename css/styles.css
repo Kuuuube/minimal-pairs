@@ -8734,7 +8734,8 @@ url(4753c5ba57962b4d7bf8.woff?1fa40e8900654d2863d011707b9fb6f2) format("woff");
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- [data-bs-theme=light] {
+:root, [data-bs-theme=light] {
+    color-scheme: light;
     --bs-blue:  #0d6efd;
     --bs-indigo:  #6610f2;
     --bs-purple:  #6f42c1;
@@ -8813,8 +8814,8 @@ url(4753c5ba57962b4d7bf8.woff?1fa40e8900654d2863d011707b9fb6f2) format("woff");
     --bs-body-bg-rgb:  255,  255,  255;
     --bs-emphasis-color:  #000;
     --bs-emphasis-color-rgb:  0,  0,  0;
-    --bs-secondary-color:  rgba(33,  37,  41,  0.75);
-    --bs-secondary-color-rgb:  33,  37,  41;
+/*     --bs-secondary-color:  rgba(33,  37,  41,  0.75);
+    --bs-secondary-color-rgb:  33,  37,  41; */
     --bs-secondary-bg:  #e9ecef;
     --bs-secondary-bg-rgb:  233,  236,  239;
     --bs-tertiary-color:  rgba(33,  37,  41,  0.5);
@@ -8853,7 +8854,7 @@ url(4753c5ba57962b4d7bf8.woff?1fa40e8900654d2863d011707b9fb6f2) format("woff");
     --bs-form-invalid-color:  #dc3545;
     --bs-form-invalid-border-color:  #dc3545;
 }
-:root, [data-bs-theme=dark] {
+[data-bs-theme=dark] {
     color-scheme: dark;
     --bs-blue:  #0d6efd;
     --bs-indigo:  #6610f2;
@@ -8933,8 +8934,8 @@ url(4753c5ba57962b4d7bf8.woff?1fa40e8900654d2863d011707b9fb6f2) format("woff");
     --bs-body-bg-rgb:  33,  37,  41;
     --bs-emphasis-color:  #fff;
     --bs-emphasis-color-rgb:  255,  255,  255;
-    --bs-secondary-color:  rgba(222,  226,  230,  0.75);
-    --bs-secondary-color-rgb:  222,  226,  230;
+/*     --bs-secondary-color:  rgba(222,  226,  230,  0.75);
+    --bs-secondary-color-rgb:  222,  226,  230; */
     --bs-secondary-bg:  #343a40;
     --bs-secondary-bg-rgb:  52,  58,  64;
     --bs-tertiary-color:  rgba(222,  226,  230,  0.5);
