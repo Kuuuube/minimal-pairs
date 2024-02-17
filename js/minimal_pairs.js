@@ -14,7 +14,7 @@ function submit_answer(answer) {
 }
 
 function add_continue_button() {
-    document.getElementById("continue-button").innerHTML += '<hr><button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()">Continue</button>'//'<button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()>Continue</button>';
+    document.getElementById("continue-button").innerHTML += '<hr><button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()">Continue</button>'
 }
 
 function update_answer_stats(pitch_type, is_correct_answer) {
