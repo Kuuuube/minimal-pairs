@@ -1,0 +1,13 @@
+html {
+    height:100%;
+    display: flex;
+    flex-flow: column;
+}
+body {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+}
+#app-container {
+    flex: 1;
+}
