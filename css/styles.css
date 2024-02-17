@@ -4433,7 +4433,7 @@ url(4753c5ba57962b4d7bf8.woff?1fa40e8900654d2863d011707b9fb6f2) format("woff");
  }
 
 .bi-link-45deg::before  {
-     content:  "\f470";
+     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/></svg>');
  }
 
 .bi-link::before  {
@@ -9104,9 +9104,11 @@ sup {
 a {
     color: rgba(var(--bs-link-color-rgb),  var(--bs-link-opacity,  1));
     text-decoration: underline;
+    filter: invert(56%) sepia(78%) saturate(874%) hue-rotate(190deg) brightness(101%) contrast(99%);
 }
 a:hover {
     --bs-link-color-rgb:  var(--bs-link-hover-color-rgb);
+    filter: invert(71%) sepia(10%) saturate(2341%) hue-rotate(186deg) brightness(98%) contrast(105%);
 }
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
     color: inherit;
