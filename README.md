@@ -8,10 +8,6 @@ This is a backup of the コツ minimal pairs test. Please use [コツ (kotu.io)]
 
 - No login required.
 
-- Contains less pairs.
-
-- Does not allow for filtering to specific pair types.
-
 ## Local Server Usage
 
 1. Install Python 3: [Download link](https://www.python.org/downloads/)
