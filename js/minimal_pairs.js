@@ -46,8 +46,9 @@ function update_history(correct_answer, is_correct_answer) {
     document.getElementById("pairs-history").innerHTML = new_list_item + document.getElementById("pairs-history").innerHTML;
 }
 
-function update_answer_buttons(json_data) {
+function update_answer_buttons(json_data, correct_answer_index) {
     document.getElementById("answer-button-row").innerHTML = "";
+    graded_answer_button_row = "";
     json_data["pairs"].forEach(function(currentValue, index, _) {
         let raw_pronunciation = currentValue["rawPronunciation"];
         let accented_mora = currentValue["accentedMora"];
@@ -57,7 +58,8 @@ function update_answer_buttons(json_data) {
 
         let sound_data = currentValue["soundData"];
         let button_sound_player = '<audio id="audio_index_' + index + '"src="data:audio/ogg;base64,' + sound_data + '" type="audio/mpeg"></audio>';
-        if (index === current_correct_answer_button) {
+
+        if (index === correct_answer_index) {
             graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-success" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
         } else {
             graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-danger" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
@@ -65,18 +67,18 @@ function update_answer_buttons(json_data) {
     });
 }
 
-function update_audio(json_data) {
+function update_audio(json_data, pairs_index) {
     let pairs_audio = {};
     json_data["pairs"].forEach(function(currentValue, index, _) {
         pairs_audio[index] = currentValue["soundData"];
     });
-    let sound_data = json_data["pairs"][current_correct_answer_button]["soundData"];
+    let sound_data = json_data["pairs"][pairs_index]["soundData"];
     document.getElementById("pair-sound-player").src = "data:audio/ogg;base64," + sound_data;
 }
 
-function set_pitch(json_data) {
-    let pitch_accent = json_data["pairs"][current_correct_answer_button]["pitchAccent"];
-    let moracount = json_data["pairs"][current_correct_answer_button]["moraCount"];
+function set_pitch(json_data, pairs_index) {
+    let pitch_accent = json_data["pairs"][pairs_index]["pitchAccent"];
+    let moracount = json_data["pairs"][pairs_index]["moraCount"];
     if (pitch_accent == 0 || pitch_accent == moracount) {
         active_pitch_type = "heiban";
     } else if (pitch_accent == 1) {
@@ -115,8 +117,27 @@ function output_accent_plain_text(raw_pronunciation, accented_mora) {
     return output;
 }
 
+function get_json_id() {
+    let possible_json_files = [];
+    let pitches = ["pitch0", "pitch1", "pitch2", "pitch3", "pitch4"];
+    pitches.forEach(function(currentValue, _, _) {
+        if (document.getElementById(currentValue).checked) {
+            possible_json_files = possible_json_files.concat(pairs_index[currentValue]);
+        }
+    });
+    if (possible_json_files.length) {
+        return possible_json_files[Math.floor(Math.random() * possible_json_files.length)];
+    } else {
+        return null;
+    }
+}
+
 async function fetch_random_pair() {
-    let random = pairs_index[Math.floor(Math.random() * pairs_index.length)];
+    let json_file_id = get_json_id();
+    if (json_file_id === null) {
+        return;
+    }
+    let random = pairs_index["pitch0"][Math.floor(Math.random() * pairs_index["pitch0"].length)];
     let response = await fetch("./data/" + random);
     let json_data = await response.json();
 
@@ -127,9 +148,9 @@ async function fetch_random_pair() {
     current_correct_answer = output_accent_plain_text(raw_pronunciation, accented_mora);
 
     document.getElementById("kana-text").innerHTML = json_data["kana"];
-    update_answer_buttons(json_data);
-    update_audio(json_data);
-    set_pitch(json_data);
+    update_answer_buttons(json_data, current_correct_answer_button);
+    update_audio(json_data, current_correct_answer_button);
+    set_pitch(json_data, current_correct_answer_button);
     document.getElementById("continue-button").innerHTML = "";
 }
 

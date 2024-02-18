@@ -2,8 +2,6 @@ let current_correct_answer_button = -1;
 let current_correct_answer = "";
 let active_pitch_type = "";
 
-let pairs_audio = {};
-
 let graded_answer_button_row = "";
 
 let heiban_count = 0;
