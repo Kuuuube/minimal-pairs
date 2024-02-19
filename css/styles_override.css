@@ -138,3 +138,11 @@ input[type=checkbox]:checked ~ .spoiler {
         color: #ffffff;
     }
 }
+
+.continue-hidden {
+    visibility: hidden;
+}
+
+.continue-shown {
+    visibility: visible;
+}

@@ -9,12 +9,16 @@ function submit_answer(answer) {
     if (is_correct_answer) {
         setTimeout(fetch_random_pair, 750);
     } else {
-        add_continue_button();
+        show_continue_button();
     }
 }
 
-function add_continue_button() {
-    document.getElementById("continue-button").innerHTML += '<hr><button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()">Continue</button>'
+function show_continue_button() {
+    document.getElementById("continue-button").classList.remove("continue-hidden");
+}
+
+function hide_continue_button() {
+    document.getElementById("continue-button").classList.add("continue-hidden");
 }
 
 function update_answer_stats(pitch_type, is_correct_answer) {
@@ -151,7 +155,7 @@ async function fetch_random_pair() {
     update_answer_buttons(json_data, current_correct_answer_button);
     update_audio(json_data, current_correct_answer_button);
     set_pitch(json_data, current_correct_answer_button);
-    document.getElementById("continue-button").innerHTML = "";
+    hide_continue_button();
 }
 
 fetch_random_pair();
