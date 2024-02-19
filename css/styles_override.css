@@ -132,7 +132,7 @@ input[type=checkbox]:checked ~ .spoiler {
 
 @media (prefers-color-scheme:light) {
     .alert {
-        background-color: #fcfcfd
+        background-color: #fcfcfd;
     }
     .alert-link {
         color: #ffffff;
