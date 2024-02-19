@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Minimal pairs Japanese pitch accent test">
     <title>Minimal Pairs</title>
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/styles_override.css" rel="stylesheet">
@@ -27,16 +28,12 @@
             <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
                 <h4 class="text-center">Patterns</h4>
                 <div>
-                    <span id="all-answers">
-                        <strong>All:</strong> 0 of 0 (0%)<br>
-                    </span>
-                    <span id="heiban-answers">
-                        <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
-                    </span>
+                    <strong>All:</strong> 0 of 0 (0%)<br>
+                    <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" id="pitch0" onchange="fetch_random_pair()" checked></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch0" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
-                            <span class="visual-element-type-showPitchAccentDrops">
+                            <label for="pitch0" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
                                     <visual-element>
                                         <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span><span>◯</span></marking-element>
@@ -52,72 +49,72 @@
                                         <span>◯</span><marking-element class="overline"><span>◯</span><span>◯</span></marking-element><marking-element class="drop"><span>◯</span></marking-element>
                                     </visual-element>
                                 </phrase-element>
-                            </span>
+                            </label>
                         </span>
                     </div>
                     <span id="atamadaka-answers">
                         <strong>Atamadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" id="pitch1" onchange="fetch_random_pair()" checked></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch1" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
-                            <span class="visual-element-type-showPitchAccentDrops">
+                            <label for="pitch1" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
                                     <visual-element>
                                         <marking-element class="drop"><span>◯</span></marking-element><span>◯</span><span>◯</span><span>◯</span>
                                     </visual-element>
                                 </phrase-element>
-                            </span>
+                            </label>
                         </span>
                     </div>
                     <span id="nakadaka-answers">
                         <strong>Nakadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" id="pitch2" onchange="fetch_random_pair()" checked></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch2" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
-                            <span class="visual-element-type-showPitchAccentDrops">
+                            <label for="pitch2" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
                                     <visual-element>
                                         <span>◯</span><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
                                     </visual-element>
                                 </phrase-element>
-                            </span>
+                            </label>
                         </span>
                     </div>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" id="pitch3" onchange="fetch_random_pair()" checked></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch3" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
-                            <span class="visual-element-type-showPitchAccentDrops">
+                            <label for="pitch3" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
                                     <visual-element>
                                         <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>〜</span><span>◯</span><span>◯</span>
                                     </visual-element>
                                 </phrase-element>
-                            </span>
+                            </label>
                         </span>
                     </div>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input" id="pitch4" onchange="fetch_random_pair()" checked></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch4" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
-                            <span class="visual-element-type-showPitchAccentDrops">
+                            <label for="pitch4" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
                                     <visual-element>
                                         <span>◯</span><marking-element class="overline"><span>◯</span><span>〜</span></marking-element><marking-element class="drop"><span>◯</span></marking-element><span>◯</span>
                                     </visual-element>
                                 </phrase-element>
-                            </span>
+                            </label>
                         </span>
                     </div>
                 </div>
                 <div style="display: none;">
                     <h4 class="text-center mt-2">Other</h4>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline">
                         <span class="text-muted">Only Devoiced Words</span>
                     </div>
                     <div>
-                        <div class="me-2 form-check-inline"><input type="checkbox" class="form-check-input"></div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline">
                         <span class="text-muted">Muffle Audio</span>
                     </div>
                 </div>

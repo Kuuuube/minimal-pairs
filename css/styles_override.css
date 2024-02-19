@@ -114,4 +114,18 @@ input[type=checkbox]:checked ~ .spoiler {
         color: #DEE2E6;
         opacity: 0.75;
     }
+    code {
+        color: #e685b5;
+    }
+    a {
+        color: #6EA8FE;
+    }
+    a:hover {
+        color: #8BB9FE;
+    }
+    .alert {
+        background-color: #1a1d20;
+        color: #dee2e6;
+        border: #343a40;
+    }
 }
