@@ -8,6 +8,8 @@ This is a backup of the コツ minimal pairs test. Please use [コツ (kotu.io)]
 
 - No login required.
 
+- Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
+
 ## Local Server Usage
 
 1. Install Python 3: [Download link](https://www.python.org/downloads/)
