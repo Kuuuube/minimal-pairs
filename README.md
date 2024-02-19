@@ -1,6 +1,6 @@
 # Minimal Pairs
 
-This is a backup of the コツ minimal pairs test. Please use [コツ (kotu.io)](https://kotu.io/) instead unless it is down or you need to run this locally. The minimal pairs test and コツ were created by [k3zi](https://github.com/k3zi).
+A backup of the コツ minimal pairs test. The original minimal pairs test and コツ [(kotu.io)](https://kotu.io/) were created by [k3zi](https://github.com/k3zi).
 
 ## Differences from コツ Minimal Pairs
 
@@ -9,6 +9,10 @@ This is a backup of the コツ minimal pairs test. Please use [コツ (kotu.io)]
 - No login required.
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
+
+## Online Usage
+
+1. Visit [Minimal Pairs](https://kuuuube.github.io/minimal-pairs).
 
 ## Local Server Usage
 
@@ -21,7 +25,3 @@ python -m http.server --bind localhost
 ```
 
 3. Open a browser and visit the link in the command output.
-
-## Online Usage
-
-1. Visit [Minimal Pairs](https://kuuuube.github.io/minimal-pairs).
