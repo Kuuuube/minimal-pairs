@@ -22,7 +22,18 @@
                 <h3 class="text-center" id="kana-text">〇〇</h3>
                 <audio controls="" autoplay id="pair-sound-player" src="data:audio/ogg;base64" type="audio/mpeg"></audio>
                 <hr class="mt-2">
-                <div class="row" id="answer-button-row"></div>
+                <div class="row" id="answer-button-row">
+                    <div class="col">
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-primary" onclick="submit_answer(0)">〇〇</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-primary" onclick="submit_answer(1)">〇〇</button>
+                        </div>
+                    </div>
+                </div>
                 <span id="continue-button"></span>
             </div>
             <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
