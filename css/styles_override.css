@@ -129,3 +129,9 @@ input[type=checkbox]:checked ~ .spoiler {
         border: #343a40;
     }
 }
+
+@media (prefers-color-scheme:light) {
+    .alert-link {
+        color: #ffffff;
+    }
+}
