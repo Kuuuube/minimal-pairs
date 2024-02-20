@@ -124,11 +124,51 @@ function output_accent_plain_text(raw_pronunciation, accented_mora) {
 function get_json_id() {
     let possible_json_files = [];
     let pitches = ["pitch0", "pitch1", "pitch2", "pitch3", "pitch4"];
-    pitches.forEach(function(currentValue, _, _) {
-        if (document.getElementById(currentValue).checked) {
-            possible_json_files = possible_json_files.concat(pairs_index[currentValue]);
-        }
-    });
+    let devoiced = document.getElementById("devoiced").checked;
+
+    if (document.getElementById("strict-pair-finding").checked) {
+        let checked_pitches = [];
+        let unchecked_pitches = [];
+        pitches.forEach(function(currentPitch, _, _) {
+            if (document.getElementById(currentPitch).checked) {
+                checked_pitches.push(currentPitch);
+            } else {
+                unchecked_pitches.push(currentPitch);
+            }
+        });
+
+        checked_pitches.forEach(function(currentPitch, _, _) {
+            pairs_index[currentPitch].forEach(function(currentPair, _, _) {
+                let good_pair = true;
+                unchecked_pitches.forEach(function(currentUncheckedPitch, _, _) {
+                    if (pairs_index[currentUncheckedPitch].includes(currentPair)) {
+                        good_pair = false;
+                    }
+                });
+                if (devoiced && !pairs_index["devoiced"].includes(currentPair)) {
+                    good_pair = false;
+                }
+                if (good_pair) {
+                    possible_json_files.push(currentPair);
+                }
+            });
+        });
+    } else {
+        pitches.forEach(function(currentPitch, _, _) {
+            if (document.getElementById(currentPitch).checked) {
+                if (devoiced) {
+                    pairs_index[currentPitch].forEach(function(currentPair, _, _) {
+                        if (pairs_index["devoiced"].includes(currentPair)) {
+                            possible_json_files.push(currentPair);
+                        }
+                    });
+                } else {
+                    possible_json_files = possible_json_files.concat(pairs_index[currentPitch]);
+                }
+            }
+        });
+    }
+
     if (possible_json_files.length) {
         return possible_json_files[Math.floor(Math.random() * possible_json_files.length)];
     } else {
@@ -141,8 +181,7 @@ async function fetch_random_pair() {
     if (json_file_id === null) {
         return;
     }
-    let random = pairs_index["pitch0"][Math.floor(Math.random() * pairs_index["pitch0"].length)];
-    let response = await fetch("./data/" + random);
+    let response = await fetch("./data/" + json_file_id);
     let json_data = await response.json();
 
     current_correct_answer_button = Math.floor(Math.random() * (json_data["pairs"].length));

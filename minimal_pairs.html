@@ -124,13 +124,17 @@
                         </span>
                     </div>
                 </div>
-                <div style="display: none;">
+                <div>
                     <h4 class="text-center mt-2">Other</h4>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline">
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="devoiced" onchange="fetch_random_pair()">
                         <span class="text-muted">Only Devoiced Words</span>
                     </div>
                     <div>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="strict-pair-finding" onchange="fetch_random_pair()">
+                        <span class="text-muted">Strict Pair Finding</span>
+                    </div>
+                    <div style="display: none;">
                         <input type="checkbox" class="form-check-input me-2 form-check-inline">
                         <span class="text-muted">Muffle Audio</span>
                     </div>
