@@ -1,12 +1,14 @@
 # Minimal Pairs
 
-A backup of the コツ minimal pairs test. The original minimal pairs test and コツ [(kotu.io)](https://kotu.io/) were created by [k3zi](https://github.com/k3zi).
+A backup of the コツ minimal pairs test. The original minimal pairs test and コツ ([kotu.io](https://kotu.io/)) were created by [k3zi](https://github.com/k3zi).
 
 ## Differences from コツ Minimal Pairs
 
 - Fully rewritten backend to support static hosting.
 
 - No login required.
+
+- Strict vs lazy pair finding option when sorting for specific pair types.
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
 
