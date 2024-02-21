@@ -28,8 +28,6 @@ A backup of the コツ minimal pairs test. The original minimal pairs test and �
 
 - `Strict Pair Finding`: Only shows pairs where both words in the pair belong to a selected pattern. The default behavior shows any pair containing at least one of the selected patterns.
 
-- `Muffle Audio`: Applies a lowpass filter to the audio output set to 200hz cutoff frequency and 12db/octave rolloff.
-
 ## Online Usage
 
 1. Visit [Minimal Pairs](https://kuuuube.github.io/minimal-pairs).
