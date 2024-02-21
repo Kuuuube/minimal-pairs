@@ -8,9 +8,27 @@ A backup of the コツ minimal pairs test. The original minimal pairs test and �
 
 - No login required.
 
-- Strict vs lazy pair finding option when sorting for specific pair types.
+- Added strict vs lazy pair finding option when sorting for pattern types.
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
+
+## Options
+
+### Patterns
+
+- `Heiban / Odaka`: Allows for selecting or deselecting Heiban and Odaka pitch patterns.
+
+- `Atamadaka`: Allows for selecting or deselecting Atamadaka pitch patterns.
+
+- `Nakadaka`: Allows for selecting or deselecting three different Nakadaka pitch patterns.
+
+### Other
+
+- `Only Devoiced Words`: Only shows words containing devoicing.
+
+- `Strict Pair Finding`: Only shows pairs where both words in the pair belong to a selected pattern. The default behavior shows any pair containing at least one of the selected patterns.
+
+- `Muffle Audio`: Applies a lowpass filter to the audio output set to 200hz cutoff frequency and 12db/octave rolloff.
 
 ## Online Usage
 
