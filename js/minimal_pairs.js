@@ -5,7 +5,7 @@ function submit_answer(answer) {
     }
     update_answer_stats(active_pitch_type, is_correct_answer);
     update_history(current_correct_answer, is_correct_answer);
-    graded_buttons();
+    show_graded_buttons();
     if (is_correct_answer) {
         setTimeout(fetch_random_pair, 750);
     } else {
@@ -90,6 +90,7 @@ function update_history(correct_answer, is_correct_answer) {
 
 function update_answer_buttons(json_data, correct_answer_index) {
     document.getElementById("answer-button-row").innerHTML = "";
+    document.getElementById("answer-button-row").classList.remove("button-hidden");
     graded_answer_button_row = "";
     json_data["pairs"].forEach(function(currentValue, index, _) {
         let raw_pronunciation = currentValue["rawPronunciation"];
@@ -106,6 +107,8 @@ function update_answer_buttons(json_data, correct_answer_index) {
         } else {
             graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-danger" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
         }
+        document.getElementById("graded-answer-button-row").classList.add("button-hidden");
+        document.getElementById("graded-answer-button-row").innerHTML = graded_answer_button_row;
     });
 }
 
@@ -130,10 +133,10 @@ function set_pitch(json_data, pairs_index) {
     }
 }
 
-function graded_buttons() {
-    document.getElementById("answer-button-row").innerHTML = graded_answer_button_row;
-    graded_answer_button_row = "";
     muffle_audio();
+function show_graded_buttons() {
+    document.getElementById("graded-answer-button-row").classList.remove("button-hidden");
+    document.getElementById("answer-button-row").classList.add("button-hidden");
 }
 
 function output_accent_plain_text(raw_pronunciation, accented_mora) {
