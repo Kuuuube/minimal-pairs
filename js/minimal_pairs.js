@@ -21,6 +21,44 @@ function hide_continue_button() {
     document.getElementById("continue-button").classList.add("continue-hidden");
 }
 
+let audio_contexts = [];
+
+function reset_audio_contexts() {
+    audio_contexts.forEach(function(currentValue, _, _) {
+        currentValue.close();
+    });
+    audio_contexts = [];
+}
+
+function muffle_audio() {
+    if (document.getElementById("muffle-audio").checked) {
+        reset_audio_contexts();
+
+        document.querySelectorAll("audio").forEach(function(currentValue, _, _) {
+            context = new AudioContext();
+            source = context.createMediaElementSource(currentValue);
+
+            filter = context.createBiquadFilter();
+            source.connect(filter);
+            filter.type = "lowpass";
+            filter.frequency.value = 200;
+            filter.connect(context.destination);
+            audio_contexts.push(context);
+        });
+    } else {
+        reset_audio_contexts();
+
+        document.querySelectorAll("audio").forEach(function(currentValue, _, _) {
+            context = new AudioContext();
+            source = context.createMediaElementSource(currentValue);
+
+            filter = context.createBiquadFilter();
+            source.connect(context.destination);
+            audio_contexts.push(context);
+        });
+    }
+}
+
 function update_answer_stats(pitch_type, is_correct_answer) {
     let is_correct_answer_int = is_correct_answer ? 1 : 0;
     if (pitch_type === "heiban") {
@@ -95,6 +133,7 @@ function set_pitch(json_data, pairs_index) {
 function graded_buttons() {
     document.getElementById("answer-button-row").innerHTML = graded_answer_button_row;
     graded_answer_button_row = "";
+    muffle_audio();
 }
 
 function output_accent_plain_text(raw_pronunciation, accented_mora) {
