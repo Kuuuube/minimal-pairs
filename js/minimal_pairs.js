@@ -1,3 +1,9 @@
+function start_test() {
+    document.getElementById("start-info").classList.add("element-hidden");
+    document.getElementById("test-area").classList.remove("element-hidden");
+    fetch_random_pair();
+}
+
 function submit_answer(answer) {
     let is_correct_answer = false;
     if (answer === current_correct_answer_button) {
@@ -52,7 +58,7 @@ function update_history(correct_answer, is_correct_answer) {
 
 function update_answer_buttons(json_data, correct_answer_index) {
     document.getElementById("answer-button-row").innerHTML = "";
-    document.getElementById("answer-button-row").classList.remove("button-hidden");
+    document.getElementById("answer-button-row").classList.remove("element-hidden");
     graded_answer_button_row = "";
     json_data["pairs"].forEach(function(currentValue, index, _) {
         let raw_pronunciation = currentValue["rawPronunciation"];
@@ -69,7 +75,7 @@ function update_answer_buttons(json_data, correct_answer_index) {
         } else {
             graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-danger" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
         }
-        document.getElementById("graded-answer-button-row").classList.add("button-hidden");
+        document.getElementById("graded-answer-button-row").classList.add("element-hidden");
         document.getElementById("graded-answer-button-row").innerHTML = graded_answer_button_row;
     });
 }
@@ -96,8 +102,8 @@ function set_pitch(json_data, pairs_index) {
 }
 
 function show_graded_buttons() {
-    document.getElementById("graded-answer-button-row").classList.remove("button-hidden");
-    document.getElementById("answer-button-row").classList.add("button-hidden");
+    document.getElementById("graded-answer-button-row").classList.remove("element-hidden");
+    document.getElementById("answer-button-row").classList.add("element-hidden");
 }
 
 function output_accent_plain_text(raw_pronunciation, accented_mora) {
@@ -199,5 +205,3 @@ async function fetch_random_pair() {
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
 }
-
-fetch_random_pair();

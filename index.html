@@ -15,9 +15,10 @@
         <div class="row">
             <div class="order-2 order-lg-0 mt-3 mt-lg-0 col-lg-3 col-12">
                 <h4 class="text-center">History</h4>
-                <div class="overflow-auto hide-scrollbar max-vh-75 list-group"></div>
+                <div class="overflow-auto hide-scrollbar max-vh-75 list-group" id="pairs-history">
+                </div>
             </div>
-            <div class="text-center order-0 order-lg-1 col-lg-6 col-12">
+            <div class="text-center order-0 order-lg-1 col-lg-6 col-12" id="start-info">
                 <h3 class="text-center">Pitch Accent Minimal Pairs Perception Test</h3>
                 <div role="alert" class="fade text-start mt-3 alert alert-dark alert-dismissible show">
                     <div class="fs-4 alert-heading h4">Before Starting:</div>
@@ -45,7 +46,28 @@
                         </ul>
                     </div>
                 </div>
-                <div class="d-grid"><button type="button" class="btn btn-primary" onclick='location.href="./minimal_pairs.html"'>Start</button></div>
+                <div class="d-grid"><button type="button" class="btn btn-primary" onclick="start_test()">Start</button></div>
+            </div>
+            <div class="text-center order-0 order-lg-1 col-lg-6 col-12 element-hidden" id="test-area">
+                <h3 class="text-center" id="kana-text">〇〇</h3>
+                <audio controls="" autoplay id="pair-sound-player" src="data:audio/ogg;base64" type="audio/mpeg"></audio>
+                <hr class="mt-2">
+                <div class="row" id="answer-button-row">
+                    <div class="col">
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-primary" onclick="submit_answer(0)">〇〇</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-primary" onclick="submit_answer(1)">〇〇</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row element-hidden" id="graded-answer-button-row"></div>
+                <div id="continue-button" style="display:inline;" class="continue-hidden">
+                    <hr><button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()">Continue</button>
+                </div>
             </div>
             <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
                 <h4 class="text-center">Patterns</h4>
@@ -57,7 +79,7 @@
                         <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch0" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch0" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
                             <label for="pitch0" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -82,7 +104,7 @@
                         <strong>Atamadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch1" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch1" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
                             <label for="pitch1" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -97,7 +119,7 @@
                         <strong>Nakadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch2" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch2" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
                             <label for="pitch2" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -109,7 +131,7 @@
                         </span>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch3" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch3" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
                             <label for="pitch3" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -121,7 +143,7 @@
                         </span>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch4" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch4" onchange="fetch_random_pair()" checked>
                         <span class="text-muted">
                             <label for="pitch4" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -136,16 +158,19 @@
                 <div>
                     <h4 class="text-center mt-2">Other</h4>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="devoiced">
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="devoiced" onchange="fetch_random_pair()">
                         <label for="devoiced" class="text-muted">Only Devoiced Words</label>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="strict-pair-finding">
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="strict-pair-finding" onchange="fetch_random_pair()">
                         <label for="strict-pair-finding" class="text-muted">Strict Pair Finding</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="js/globals.js"></script>
+    <script src="js/pairs_index.js"></script>
+    <script src="js/minimal_pairs.js"></script>
 </body>
 </html>

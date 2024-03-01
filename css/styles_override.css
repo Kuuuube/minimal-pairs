@@ -147,6 +147,6 @@ input[type=checkbox]:checked ~ .spoiler {
     visibility: visible;
 }
 
-.button-hidden {
+.element-hidden {
     display: none;
 }
