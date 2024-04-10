@@ -6,8 +6,6 @@ A backup of the コツ minimal pairs test. The original minimal pairs test and �
 
 - Fully rewritten backend to support static hosting.
 
-- No login required.
-
 - Added strict vs lazy pair finding option when sorting for pattern types.
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
