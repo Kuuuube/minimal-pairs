@@ -4,7 +4,7 @@ import json
 pairs_index = json.loads('{"pitch0":[],"pitch1":[],"pitch2":[],"pitch3":[],"pitch4":[], "devoiced":[]}')
 
 folder = "data"
-for dir_item in os.listdir(folder):
+for dir_item in sorted(os.listdir(folder)):
     json_file = json.loads(open(folder + "/" + dir_item, "r", encoding = "UTF8").read())
     for pair in json_file["pairs"]:
         json_pitch = pair["pitchAccent"]
