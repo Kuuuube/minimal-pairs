@@ -215,9 +215,11 @@ function get_json_id() {
 
 async function fetch_random_pair() {
     let json_file_id = get_json_id();
+    document.documentElement.dataset.badPitchCheckboxes = json_file_id === null;
     if (json_file_id === null) {
         return;
     }
+
     let response = await fetch("./data/" + json_file_id);
     let json_data = await response.json();
 

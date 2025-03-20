@@ -150,3 +150,11 @@ input[type=checkbox]:checked ~ .spoiler {
 .element-hidden {
     display: none;
 }
+
+:root[data-bad-pitch-checkboxes="true"] .pair-checkbox-input:checked {
+    background-color: #fd0d0d;
+}
+
+:root[data-bad-pitch-checkboxes="true"] .pair-checkbox-input {
+    border-color: #fd0d0d;
+}
