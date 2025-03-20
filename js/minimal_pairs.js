@@ -138,44 +138,44 @@ function get_json_id() {
     if (document.getElementById("strict-pair-finding").checked) {
         let checked_pitches = [];
         let unchecked_pitches = [];
-        pitches.forEach(function(currentPitch, _, _) {
+        for (const currentPitch of pitches) {
             if (document.getElementById(currentPitch).checked) {
                 checked_pitches.push(currentPitch);
             } else {
                 unchecked_pitches.push(currentPitch);
             }
-        });
+        };
 
-        checked_pitches.forEach(function(currentPitch, _, _) {
-            pairs_index[currentPitch].forEach(function(currentPair, _, _) {
+        for (const currentPitch of checked_pitches) {
+            for (const currentPair of pairs_index[currentPitch]) {
                 let good_pair = true;
-                unchecked_pitches.forEach(function(currentUncheckedPitch, _, _) {
+                for (const currentUncheckedPitch of unchecked_pitches) {
                     if (pairs_index[currentUncheckedPitch].includes(currentPair)) {
                         good_pair = false;
                     }
-                });
+                };
                 if (devoiced && !pairs_index["devoiced"].includes(currentPair)) {
                     good_pair = false;
                 }
                 if (good_pair) {
                     possible_json_files.push(currentPair);
                 }
-            });
-        });
+            };
+        };
     } else {
-        pitches.forEach(function(currentPitch, _, _) {
+        for (const currentPitch of pitches) {
             if (document.getElementById(currentPitch).checked) {
                 if (devoiced) {
-                    pairs_index[currentPitch].forEach(function(currentPair, _, _) {
+                    for (const currentPair of pairs_index[currentPitch]) {
                         if (pairs_index["devoiced"].includes(currentPair)) {
                             possible_json_files.push(currentPair);
                         }
-                    });
+                    };
                 } else {
                     possible_json_files = possible_json_files.concat(pairs_index[currentPitch]);
                 }
             }
-        });
+        };
     }
 
     if (possible_json_files.length) {
