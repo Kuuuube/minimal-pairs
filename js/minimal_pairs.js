@@ -27,7 +27,8 @@ function submit_answer(answer) {
     update_answer_stats(active_pitch_type, is_correct_answer);
     update_history(current_correct_answer, is_correct_answer);
     show_graded_buttons();
-    if (is_correct_answer) {
+    let pause_after_correct = document.querySelector("#pause-after-correct").checked;
+    if (is_correct_answer && !pause_after_correct) {
         setTimeout(fetch_random_pair, 750);
     } else {
         show_continue_button();
@@ -238,7 +239,7 @@ async function fetch_random_pair() {
 
 document.querySelector("#start-test-button").addEventListener("click", start_test);
 document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
-for (const element of document.querySelectorAll(".pair-checkbox-input")) {
+for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
     element.addEventListener("click", fetch_random_pair);
 }
 
