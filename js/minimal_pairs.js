@@ -1,3 +1,20 @@
+import {pairs_index} from "./pairs_index.js"
+
+// globals
+let current_correct_answer_button = -1;
+let current_correct_answer = "";
+let active_pitch_type = "";
+
+let graded_answer_button_row = "";
+
+let heiban_count = 0;
+let correct_heiban_count = 0;
+let atamadaka_count = 0;
+let correct_atamadaka_count = 0;
+let nakadaka_count = 0;
+let correct_nakadaka_count = 0;
+
+
 function start_test() {
     document.getElementById("start-info").classList.add("element-hidden");
     document.getElementById("test-area").classList.remove("element-hidden");
