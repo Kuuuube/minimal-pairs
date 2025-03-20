@@ -225,6 +225,6 @@ async function fetch_random_pair() {
 
 document.querySelector("#start-test-button").addEventListener("click", start_test);
 document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
-for (const element of document.querySelectorAll(".pair-checkbox")) {
+for (const element of document.querySelectorAll(".pair-checkbox-input")) {
     element.addEventListener("click", fetch_random_pair);
 }
