@@ -5,8 +5,6 @@ let current_correct_answer_button = -1;
 let current_correct_answer = "";
 let active_pitch_type = "";
 
-let graded_answer_button_row = "";
-
 let heiban_count = 0;
 let correct_heiban_count = 0;
 let atamadaka_count = 0;
@@ -76,24 +74,37 @@ function update_history(correct_answer, is_correct_answer) {
 function update_answer_buttons(json_data, correct_answer_index) {
     document.getElementById("answer-button-row").innerHTML = "";
     document.getElementById("answer-button-row").classList.remove("element-hidden");
-    graded_answer_button_row = "";
+    let graded_answer_button_row = document.getElementById("graded-answer-button-row");
+    graded_answer_button_row.innerHTML = '';
     for (const [index, currentValue] of json_data["pairs"].entries()) {
         let raw_pronunciation = currentValue.rawPronunciation;
         let accented_mora = currentValue["accentedMora"];
         let entry = output_accent_plain_text(raw_pronunciation, accented_mora);
-        let new_answer_button = '<div class="col">\n<div class="d-grid"><button type="button" class="btn btn-primary" onclick="submit_answer(' + index + ')">' + entry + '</button></div>\n</div>';
-        document.getElementById("answer-button-row").innerHTML += new_answer_button;
+        let new_answer_button = document.createElement("div");
+        new_answer_button.classList.add("col");
+        new_answer_button.innerHTML = '<div class="d-grid"><button type="button" class="btn btn-primary">' + entry + '</button></div>';
+        new_answer_button.addEventListener("click", () => {submit_answer(index)})
+        document.getElementById("answer-button-row").appendChild(new_answer_button);
 
         let sound_data = currentValue["soundData"];
         let button_sound_player = '<audio id="audio_index_' + index + '"src="data:audio/ogg;base64,' + sound_data + '" type="audio/mpeg"></audio>';
 
+        let graded_answer_button_row_wrapper = document.createElement("div");
+        graded_answer_button_row_wrapper.classList.add("col");
+
+        let graded_answer_button_row_element = document.createElement("div");
+        graded_answer_button_row_element.classList.add("d-grid");
         if (index === correct_answer_index) {
-            graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-success" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
+            graded_answer_button_row_element.innerHTML = button_sound_player + '<button type="button" class="btn btn-success">' + entry + '</button>';
         } else {
-            graded_answer_button_row += '<div class="col">\n<div class="d-grid">' + button_sound_player + '<button type="button" class="btn btn-danger" onclick="document.getElementById(\'audio_index_' + index + '\').play()">' + entry + '</button></div>\n</div>';
+            graded_answer_button_row_element.innerHTML = button_sound_player + '<button type="button" class="btn btn-danger">' + entry + '</button>';
         }
-        document.getElementById("graded-answer-button-row").classList.add("element-hidden");
-        document.getElementById("graded-answer-button-row").innerHTML = graded_answer_button_row;
+        graded_answer_button_row_element.addEventListener("click", () => {document.getElementById("audio_index_" + index).play()})
+
+        graded_answer_button_row_wrapper.appendChild(graded_answer_button_row_element);
+
+        graded_answer_button_row.classList.add("element-hidden");
+        graded_answer_button_row.appendChild(graded_answer_button_row_wrapper);
     };
 }
 
@@ -227,4 +238,8 @@ document.querySelector("#start-test-button").addEventListener("click", start_tes
 document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
 for (const element of document.querySelectorAll(".pair-checkbox-input")) {
     element.addEventListener("click", fetch_random_pair);
+}
+
+for (const [index, element] of document.querySelectorAll(".answer-button-button").entries()) {
+    element.addEventListener("click", () => {submit_answer(index)});
 }
