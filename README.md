@@ -26,6 +26,8 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - `Strict Pair Finding`: Only shows pairs where both words in the pair belong to a selected pattern. The default behavior shows any pair containing at least one of the selected patterns.
 
+- `Pause After Corrent Answer`: Disables automatically advancing to the next pair after a correct answer is submitted.
+
 ## Online Usage
 
 1. Visit [Minimal Pairs](https://kuuuube.github.io/minimal-pairs).
