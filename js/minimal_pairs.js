@@ -222,3 +222,9 @@ async function fetch_random_pair() {
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
 }
+
+document.querySelector("#start-test-button").addEventListener("click", start_test);
+document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
+for (const element of document.querySelectorAll(".pair-checkbox")) {
+    element.addEventListener("click", fetch_random_pair);
+}

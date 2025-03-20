@@ -47,7 +47,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="d-grid"><button type="button" class="btn btn-primary" onclick="start_test()">Start</button></div>
+                <div class="d-grid"><button type="button" class="btn btn-primary" id="start-test-button">Start</button></div>
             </div>
             <div class="text-center order-0 order-lg-1 col-lg-6 col-12 element-hidden" id="test-area">
                 <h3 class="text-center" id="kana-text">〇〇</h3>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row element-hidden" id="graded-answer-button-row"></div>
                 <div id="continue-button" style="display:inline;" class="continue-hidden">
-                    <hr><button class="col-12 btn btn-primary" type="button" onclick="fetch_random_pair()">Continue</button>
+                    <hr><button class="col-12 btn btn-primary" type="button" id="continue-button-button">Continue</button>
                 </div>
             </div>
             <div class="order-1 order-lg-2 mt-3 mt-lg-0 col-lg-3 col-12">
@@ -80,7 +80,7 @@
                         <strong>Heiban / Odaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch0" onchange="fetch_random_pair()" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="pitch0" checked>
                         <span class="text-muted">
                             <label for="pitch0" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -105,7 +105,7 @@
                         <strong>Atamadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch1" onchange="fetch_random_pair()" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="pitch1" checked>
                         <span class="text-muted">
                             <label for="pitch1" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -120,7 +120,7 @@
                         <strong>Nakadaka:</strong> 0 of 0 (0%)
                     </span>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch2" onchange="fetch_random_pair()" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="pitch2" checked>
                         <span class="text-muted">
                             <label for="pitch2" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -132,7 +132,7 @@
                         </span>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch3" onchange="fetch_random_pair()" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="pitch3" checked>
                         <span class="text-muted">
                             <label for="pitch3" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -144,7 +144,7 @@
                         </span>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="pitch4" onchange="fetch_random_pair()" checked>
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="pitch4" checked>
                         <span class="text-muted">
                             <label for="pitch4" class="visual-element-type-showPitchAccentDrops">
                                 <phrase-element>
@@ -159,11 +159,11 @@
                 <div>
                     <h4 class="text-center mt-2">Other</h4>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="devoiced" onchange="fetch_random_pair()">
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="devoiced">
                         <label for="devoiced" class="text-muted">Only Devoiced Words</label>
                     </div>
                     <div>
-                        <input type="checkbox" class="form-check-input me-2 form-check-inline" id="strict-pair-finding" onchange="fetch_random_pair()">
+                        <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox" id="strict-pair-finding">
                         <label for="strict-pair-finding" class="text-muted">Strict Pair Finding</label>
                     </div>
                 </div>
