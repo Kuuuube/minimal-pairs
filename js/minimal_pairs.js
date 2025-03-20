@@ -77,8 +77,8 @@ function update_answer_buttons(json_data, correct_answer_index) {
     document.getElementById("answer-button-row").innerHTML = "";
     document.getElementById("answer-button-row").classList.remove("element-hidden");
     graded_answer_button_row = "";
-    json_data["pairs"].forEach(function(currentValue, index, _) {
-        let raw_pronunciation = currentValue["rawPronunciation"];
+    for (const [index, currentValue] of json_data["pairs"].entries()) {
+        let raw_pronunciation = currentValue.rawPronunciation;
         let accented_mora = currentValue["accentedMora"];
         let entry = output_accent_plain_text(raw_pronunciation, accented_mora);
         let new_answer_button = '<div class="col">\n<div class="d-grid"><button type="button" class="btn btn-primary" onclick="submit_answer(' + index + ')">' + entry + '</button></div>\n</div>';
@@ -94,14 +94,14 @@ function update_answer_buttons(json_data, correct_answer_index) {
         }
         document.getElementById("graded-answer-button-row").classList.add("element-hidden");
         document.getElementById("graded-answer-button-row").innerHTML = graded_answer_button_row;
-    });
+    };
 }
 
 function update_audio(json_data, pairs_index) {
     let pairs_audio = {};
-    json_data["pairs"].forEach(function(currentValue, index, _) {
+    for (const [index, currentValue] of json_data["pairs"].entries()) {
         pairs_audio[index] = currentValue["soundData"];
-    });
+    };
     let sound_data = json_data["pairs"][pairs_index]["soundData"];
     document.getElementById("pair-sound-player").src = "data:audio/ogg;base64," + sound_data;
 }
