@@ -34,10 +34,6 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 1. Install Python 3: [Download link](https://www.python.org/downloads/)
 
-2. Open a terminal in the repo's root directory and run:
-
-```
-python -m http.server --bind localhost
-```
+2. Run the `run.bat` or `run.sh` script.
 
 3. Open a browser and visit the link in the command output.
