@@ -322,7 +322,9 @@ document.addEventListener("keydown", (e) => {
             break;
         }
         case "continue": {
-            fetch_random_pair();
+            if (document.querySelector("#continue-button-button").checkVisibility({visibilityProperty: true})) {
+                fetch_random_pair();
+            }
             break;
         }
         case "play_audio": {
