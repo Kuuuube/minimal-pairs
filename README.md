@@ -10,6 +10,8 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
 
+- Customizable keyboard shortcuts are available.
+
 ## Options
 
 ### Patterns
@@ -27,6 +29,14 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 - `Strict Pair Finding`: Only shows pairs where both words in the pair belong to a selected pattern. The default behavior shows any pair containing at least one of the selected patterns.
 
 - `Pause After Corrent Answer`: Disables automatically advancing to the next pair after a correct answer is submitted.
+
+## Shortcuts
+
+- `Answer buttons`: The keybind to use to click each answer button.
+
+- `Continue`: The keybind to use to click the continue button.
+
+- `Play Audio`: The keybind to use to replay audio.
 
 ## Online Usage
 
