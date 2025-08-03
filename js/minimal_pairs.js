@@ -82,8 +82,8 @@ function update_answer_buttons(json_data, correct_answer_index) {
         let accented_mora = currentValue["accentedMora"];
         let entry = output_accent_plain_text(raw_pronunciation, accented_mora);
         let new_answer_button = document.createElement("div");
-        new_answer_button.classList.add("col");
-        new_answer_button.innerHTML = '<div class="d-grid"><button type="button" class="btn btn-primary">' + entry + '</button></div>';
+        new_answer_button.classList.add("col", "d-grid");
+        new_answer_button.innerHTML = '<button type="button" class="btn btn-primary">' + entry + '</button>';
         new_answer_button.addEventListener("click", () => {submit_answer(index)})
         document.getElementById("answer-button-row").appendChild(new_answer_button);
 
@@ -91,18 +91,14 @@ function update_answer_buttons(json_data, correct_answer_index) {
         let button_sound_player = '<audio id="audio_index_' + index + '"src="data:audio/ogg;base64,' + sound_data + '" type="audio/mpeg"></audio>';
 
         let graded_answer_button_row_wrapper = document.createElement("div");
-        graded_answer_button_row_wrapper.classList.add("col");
+        graded_answer_button_row_wrapper.classList.add("col", "d-grid");
 
-        let graded_answer_button_row_element = document.createElement("div");
-        graded_answer_button_row_element.classList.add("d-grid");
         if (index === correct_answer_index) {
-            graded_answer_button_row_element.innerHTML = button_sound_player + '<button type="button" class="btn btn-success">' + entry + '</button>';
+            graded_answer_button_row_wrapper.innerHTML = button_sound_player + '<button type="button" class="btn btn-success">' + entry + '</button>';
         } else {
-            graded_answer_button_row_element.innerHTML = button_sound_player + '<button type="button" class="btn btn-danger">' + entry + '</button>';
+            graded_answer_button_row_wrapper.innerHTML = button_sound_player + '<button type="button" class="btn btn-danger">' + entry + '</button>';
         }
-        graded_answer_button_row_element.addEventListener("click", () => {document.getElementById("audio_index_" + index).play()})
-
-        graded_answer_button_row_wrapper.appendChild(graded_answer_button_row_element);
+        graded_answer_button_row_wrapper.addEventListener("click", () => {document.getElementById("audio_index_" + index).play()})
 
         graded_answer_button_row.classList.add("element-hidden");
         graded_answer_button_row.appendChild(graded_answer_button_row_wrapper);
