@@ -1,6 +1,7 @@
 import {pairs_index} from "./pairs_index.js"
 
 // globals
+let test_started = false;
 let current_correct_answer_button = -1;
 let current_correct_answer = "";
 let active_pitch_type = "";
@@ -12,8 +13,46 @@ let correct_atamadaka_count = 0;
 let nakadaka_count = 0;
 let correct_nakadaka_count = 0;
 
+let shortcuts = {
+    answer_button_1: {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        meta: false,
+        key: "1"
+    },
+    answer_button_2: {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        meta: false,
+        key: "2"
+    },
+    answer_button_3: {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        meta: false,
+        key: "3"
+    },
+    continue: {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        meta: false,
+        key: " "
+    },
+    play_audio: {
+        ctrl: false,
+        shift: false,
+        alt: false,
+        meta: false,
+        key: "r"
+    },
+}
 
 function start_test() {
+    test_started = true;
     document.getElementById("start-info").classList.add("element-hidden");
     document.getElementById("test-area").classList.remove("element-hidden");
     fetch_random_pair();
@@ -233,12 +272,87 @@ async function fetch_random_pair() {
     hide_continue_button();
 }
 
+function click_answer_button(index) {
+    // graded must be checked first or it will cause a race
+    const graded_answer_button_row = document.querySelector("#graded-answer-button-row");
+    if (graded_answer_button_row.children.length > index) {
+        const graded_answer_button = graded_answer_button_row.children[index];
+        if (graded_answer_button.checkVisibility()) { graded_answer_button.click(); }
+    }
+
+    const answer_button_row = document.querySelector("#answer-button-row");
+    if (answer_button_row.children.length > index) {
+        const answer_button = answer_button_row.children[index];
+        if (answer_button.checkVisibility()) { answer_button.click(); }
+    }
+}
+
 document.querySelector("#start-test-button").addEventListener("click", start_test);
 document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
 for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
     element.addEventListener("click", fetch_random_pair);
 }
 
-for (const [index, element] of document.querySelectorAll(".answer-button-button").entries()) {
-    element.addEventListener("click", () => {submit_answer(index)});
+document.addEventListener("keydown", (e) => {
+    if (!test_started) { return; }
+
+    let shortcut_action = "";
+    for (const [key, value] of Object.entries(shortcuts)) {
+        if (e.ctrlKey !== value.ctrl ||
+            e.shiftKey !== value.shift ||
+            e.altKey !== value.alt ||
+            e.metaKey !== value.meta ||
+            e.key !== value.key) {
+                continue;
+            }
+        shortcut_action = key;
+    }
+    if (shortcut_action.length > 0) { e.preventDefault(); }
+    switch (shortcut_action) {
+        case "answer_button_1": {
+            click_answer_button(0);
+            break;
+        }
+        case "answer_button_2": {
+            click_answer_button(1);
+            break;
+        }
+        case "answer_button_3": {
+            click_answer_button(2);
+            break;
+        }
+        case "continue": {
+            fetch_random_pair();
+            break;
+        }
+        case "play_audio": {
+            const audio_player = document.querySelector("#pair-sound-player");
+            audio_player.pause();
+            audio_player.currentTime = 0;
+            audio_player.play();
+            break;
+        }
+        default: {
+            return;
+        }
+    }
+});
+
+for (const element of document.querySelectorAll(".shortcut-input")) {
+    element.addEventListener("keydown", (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        shortcuts[e.target.id] = {
+            ctrl: e.ctrlKey,
+            shift: e.shiftKey,
+            alt: e.altKey,
+            meta: e.metaKey,
+            key: e.key,
+        }
+
+        let modifiers_string = (e.ctrlKey ? "^" : "") + (e.shiftKey ? "+" : "") + (e.altKey ? "!" : "") + (e.metaKey ? "#" : "");
+        let key_string = e.key === " " ? "Space" : e.key;
+        e.target.value = modifiers_string + key_string;
+    });
 }
