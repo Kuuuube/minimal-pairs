@@ -294,8 +294,6 @@ for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
 }
 
 document.addEventListener("keydown", (e) => {
-    if (!test_started) { return; }
-
     let shortcut_action = "";
     for (const [key, value] of Object.entries(shortcuts)) {
         if (e.ctrlKey !== value.ctrl ||
@@ -307,6 +305,7 @@ document.addEventListener("keydown", (e) => {
             }
         shortcut_action = key;
     }
+    if (!test_started && shortcut_action !== 'continue') { return; }
     if (shortcut_action.length > 0) { e.preventDefault(); }
     switch (shortcut_action) {
         case "answer_button_1": {
@@ -324,6 +323,9 @@ document.addEventListener("keydown", (e) => {
         case "continue": {
             if (document.querySelector("#continue-button-button").checkVisibility({visibilityProperty: true})) {
                 fetch_random_pair();
+            }
+            if (!test_started) {
+                start_test();
             }
             break;
         }
