@@ -290,7 +290,11 @@ function click_answer_button(index) {
 document.querySelector("#start-test-button").addEventListener("click", start_test);
 document.querySelector("#continue-button-button").addEventListener("click", fetch_random_pair);
 for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
-    element.addEventListener("click", fetch_random_pair);
+    element.addEventListener("click", () => {
+        if (test_started) {
+            fetch_random_pair();
+        }
+    });
 }
 
 document.addEventListener("keydown", (e) => {
