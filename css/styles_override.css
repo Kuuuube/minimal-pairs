@@ -177,3 +177,9 @@ input[type=checkbox]:checked ~ .spoiler {
     margin-left: 0.2em;
     margin-right: 0.25em;
 }
+
+input {
+    border-radius: 0.25em;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    background-color: rgba(0,  0,  0,  0);
+}
