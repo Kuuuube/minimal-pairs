@@ -63,6 +63,7 @@ function play_pair_audio() {
     audio_player.pause();
     audio_player.currentTime = 0;
     audio_player.play();
+    audio_player.autoplay = true;
 }
 
 function submit_answer(answer) {
