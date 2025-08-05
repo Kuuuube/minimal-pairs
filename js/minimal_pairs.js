@@ -55,7 +55,14 @@ function start_test() {
     test_started = true;
     document.getElementById("start-info").classList.add("element-hidden");
     document.getElementById("test-area").classList.remove("element-hidden");
-    fetch_random_pair();
+    play_pair_audio(); // first audio is prefetched
+}
+
+function play_pair_audio() {
+    const audio_player = document.querySelector("#pair-sound-player");
+    audio_player.pause();
+    audio_player.currentTime = 0;
+    audio_player.play();
 }
 
 function submit_answer(answer) {
@@ -334,10 +341,7 @@ document.addEventListener("keydown", (e) => {
             break;
         }
         case "play_audio": {
-            const audio_player = document.querySelector("#pair-sound-player");
-            audio_player.pause();
-            audio_player.currentTime = 0;
-            audio_player.play();
+            play_pair_audio();
             break;
         }
         default: {
@@ -364,3 +368,5 @@ for (const element of document.querySelectorAll(".shortcut-input")) {
         e.target.value = modifiers_string + key_string;
     });
 }
+
+fetch_random_pair(); // prefetch first pair audio
