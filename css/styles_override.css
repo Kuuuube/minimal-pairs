@@ -180,3 +180,9 @@ input {
     border: var(--bs-border-width) solid var(--bs-border-color);
     background-color: rgba(0,  0,  0,  0);
 }
+
+.options-group {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+}

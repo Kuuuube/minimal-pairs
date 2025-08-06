@@ -359,7 +359,7 @@ button {
     flex-shrink: 0;
     width: 1em;
     height: 1em;
-    margin-top: .25em;
+    margin-top: .125em;
     vertical-align: top;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -733,9 +733,6 @@ space-element {
 
 marking-element {
     border-top: solid transparent 1px;
-    display: inline-block;
-    padding-top: 0;
-    text-indent: 0;
     vertical-align: bottom;
 }
 
