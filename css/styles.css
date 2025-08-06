@@ -117,9 +117,7 @@
     --bs-form-invalid-border-color: #dc3545;
 }
 
-*,
-::after,
-::before {
+*, ::after, ::before {
     box-sizing: border-box;
 }
 
@@ -150,10 +148,7 @@ hr {
     opacity: .25;
 }
 
-.h4,
-h2,
-h3,
-h4 {
+.h4, h2, h3, h4 {
     margin-top: 0;
     margin-bottom: .5rem;
     font-weight: 500;
@@ -181,15 +176,13 @@ h3 {
     }
 }
 
-.h4,
-h4 {
+.h4, h4 {
     font-size: calc(1.275rem + .3vw);
 }
 
 @media (min-width:1200px) {
 
-    .h4,
-    h4 {
+    .h4,     h4 {
         font-size: 1.5rem;
     }
 }
@@ -250,8 +243,7 @@ button:focus:not(:focus-visible) {
     outline: 0;
 }
 
-button,
-input {
+button, input {
     margin: 0;
     font-family: inherit;
     font-size: inherit;
@@ -262,10 +254,7 @@ button {
     text-transform: none;
 }
 
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled),
-[type=submit]:not(:disabled),
-button:not(:disabled) {
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
     cursor: pointer;
 }
 
@@ -274,13 +263,7 @@ button:not(:disabled) {
     border-style: none;
 }
 
-::-webkit-datetime-edit-day-field,
-::-webkit-datetime-edit-fields-wrapper,
-::-webkit-datetime-edit-hour-field,
-::-webkit-datetime-edit-minute,
-::-webkit-datetime-edit-month-field,
-::-webkit-datetime-edit-text,
-::-webkit-datetime-edit-year-field {
+::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-fields-wrapper, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-text, ::-webkit-datetime-edit-year-field {
     padding: 0;
 }
 
@@ -517,17 +500,13 @@ button:not(:disabled) {
     box-shadow: var(--bs-btn-focus-box-shadow);
 }
 
-.btn:first-child:active,
-:not(.btn-check)+.btn:active {
+.btn:first-child:active, :not(.btn-check)+.btn:active {
     color: var(--bs-btn-active-color);
     background-color: var(--bs-btn-active-bg);
     border-color: var(--bs-btn-active-border-color);
 }
 
-.btn-check:checked+.btn:focus-visible,
-.btn.show:focus-visible,
-.btn:first-child:active:focus-visible,
-:not(.btn-check)+.btn:active:focus-visible {
+.btn-check:checked+.btn:focus-visible, .btn.show:focus-visible, .btn:first-child:active:focus-visible, :not(.btn-check)+.btn:active:focus-visible {
     box-shadow: var(--bs-btn-focus-box-shadow);
 }
 
@@ -730,8 +709,7 @@ button:not(:disabled) {
     }
 }
 
-p,
-ul {
+p, ul {
     margin-bottom: 0;
 }
 
@@ -786,8 +764,7 @@ marking-element {
     vertical-align: bottom;
 }
 
-marking-element.overline,
-marking-element.drop {
+marking-element.overline, marking-element.drop {
     border-top: solid #dc3545 1px;
     position: relative;
 }
@@ -831,20 +808,17 @@ visual-element>* {
     }
 }
 
-.showAutolinks h3:hover .autolink span,
-.showAutolinks h4:hover .autolink span {
+.showAutolinks h3:hover .autolink span, .showAutolinks h4:hover .autolink span {
     visibility: visible;
 }
 
-.showAutolinks h3 .autolink,
-.showAutolinks h4 .autolink {
+.showAutolinks h3 .autolink, .showAutolinks h4 .autolink {
     display: inline;
     float: left;
     margin-left: -20px;
 }
 
-.showAutolinks h3 .autolink span,
-.showAutolinks h4 .autolink span {
+.showAutolinks h3 .autolink span, .showAutolinks h4 .autolink span {
     visibility: hidden;
 }
 
