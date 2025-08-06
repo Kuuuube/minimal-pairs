@@ -10,6 +10,10 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
 
+- Audio is fetched one pair ahead. This vastly improves responsiveness on slow connections.
+
+    Note: When changing pair filters, the prefetched audio is no longer valid and has to be discarded. Load times when changing filters are not aided by prefetching.
+
 - Customizable keyboard shortcuts are available.
 
 ## Options
