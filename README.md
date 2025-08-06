@@ -8,7 +8,7 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - Added strict vs lazy pair finding option when sorting for pattern types.
 
-- Optimized asset sizes for faster loading, perfect score on Google's Lighthouse audit.
+- Optimized asset sizes for faster loading, perfect performance score on Google's Lighthouse audit. (<50kb full page load, <14kb total for most pair audio)
 
 - Audio is fetched one pair ahead. This vastly improves responsiveness on slow connections.
 
