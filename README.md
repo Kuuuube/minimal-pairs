@@ -10,7 +10,7 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - Optimized asset sizes for faster loading, perfect performance score on Google's Lighthouse audit. (<50kb full page load, <14kb total for most pair audio)
 
-- Audio is fetched one pair ahead. This vastly improves responsiveness on slow connections.
+- Audio is fetched one pair ahead. Responsiveness on terrible connections and slow internet speed should be near indistinguishable from perfect connections (tested at 50kbps down, 10kbps up, 500ms, 75% loss).
 
     Note: When changing pair filters, the prefetched audio is no longer valid and has to be discarded. Load times when changing filters are not aided by prefetching.
 
