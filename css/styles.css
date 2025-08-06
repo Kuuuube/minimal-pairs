@@ -258,31 +258,6 @@ button {
     cursor: pointer;
 }
 
-::-moz-focus-inner {
-    padding: 0;
-    border-style: none;
-}
-
-::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-fields-wrapper, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-text, ::-webkit-datetime-edit-year-field {
-    padding: 0;
-}
-
-::-webkit-inner-spin-button {
-    height: auto;
-}
-
-::-webkit-search-decoration {
-    -webkit-appearance: none;
-}
-
-::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-::file-selector-button {
-    font: inherit;
-}
-
 .container {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
