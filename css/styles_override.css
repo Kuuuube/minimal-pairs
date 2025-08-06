@@ -126,7 +126,7 @@ input[type=checkbox]:checked ~ .spoiler {
     .alert {
         background-color: #1a1d20;
         color: #dee2e6;
-        border: #343a40;
+        border-color: #343a40;
     }
 }
 
