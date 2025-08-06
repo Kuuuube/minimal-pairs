@@ -55,15 +55,7 @@ function start_test() {
     test_started = true;
     document.getElementById("start-info").classList.add("element-hidden");
     document.getElementById("test-area").classList.remove("element-hidden");
-    play_pair_audio(); // first audio is prefetched
-}
-
-function play_pair_audio() {
-    const audio_player = document.querySelector("#pair-sound-player");
-    audio_player.pause();
-    audio_player.currentTime = 0;
-    audio_player.play();
-    audio_player.autoplay = true;
+    fetch_random_pair();
 }
 
 function submit_answer(answer) {
@@ -257,15 +249,39 @@ function get_json_id() {
     }
 }
 
-async function fetch_random_pair() {
+function play_pair_audio() {
+    const audio_player = document.querySelector("#pair-sound-player");
+    audio_player.pause();
+    audio_player.currentTime = 0;
+    audio_player.play();
+}
+
+async function raw_request_audio() {
     let json_file_id = get_json_id();
-    document.documentElement.dataset.badPitchCheckboxes = json_file_id === null;
     if (json_file_id === null) {
+        return null;
+    }
+    return {json_file_id, json_data: await (await fetch("./data/" + json_file_id)).json()};
+}
+
+let prefetched_audio_json = raw_request_audio();
+
+async function request_prefetched_audio() {
+    let current_audio_json = await prefetched_audio_json;
+    if (!current_audio_json) {
+        current_audio_json = await raw_request_audio();
+    }
+    prefetched_audio_json = raw_request_audio();
+    return current_audio_json;
+}
+
+async function fetch_random_pair() {
+    let json_data_raw = await request_prefetched_audio();
+    document.documentElement.dataset.badPitchCheckboxes = json_data_raw === null;
+    if (json_data_raw === null) {
         return;
     }
-
-    let response = await fetch("./data/" + json_file_id);
-    let json_data = await response.json();
+    const json_data = json_data_raw.json_data;
 
     current_correct_answer_button = Math.floor(Math.random() * (json_data["pairs"].length));
 
@@ -300,6 +316,7 @@ document.querySelector("#continue-button-button").addEventListener("click", fetc
 for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
     element.addEventListener("click", () => {
         if (test_started) {
+            prefetched_audio_json = null;
             fetch_random_pair();
         }
     });
@@ -369,5 +386,3 @@ for (const element of document.querySelectorAll(".shortcut-input")) {
         e.target.value = modifiers_string + key_string;
     });
 }
-
-fetch_random_pair(); // prefetch first pair audio
