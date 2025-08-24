@@ -144,13 +144,104 @@ function update_answer_buttons(json_data, correct_answer_index) {
     };
 }
 
-function update_audio(json_data, pairs_index) {
+async function audioBufferToWav(buffer) {
+    const numChannels = buffer.numberOfChannels;
+    const length = buffer.length * numChannels * 2 + 44;
+    const bufferArray = new ArrayBuffer(length);
+    const view = new DataView(bufferArray);
+
+    function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+        }
+    }
+
+    let offset = 0;
+    writeString(view, offset, 'RIFF'); offset += 4;
+    view.setUint32(offset, length - 8, true); offset += 4;
+    writeString(view, offset, 'WAVE'); offset += 4;
+    writeString(view, offset, 'fmt '); offset += 4;
+    view.setUint32(offset, 16, true); offset += 4;
+    view.setUint16(offset, 1, true); offset += 2;
+    view.setUint16(offset, numChannels, true); offset += 2;
+    view.setUint32(offset, buffer.sampleRate, true); offset += 4;
+    view.setUint32(offset, buffer.sampleRate * numChannels * 2, true); offset += 4;
+    view.setUint16(offset, numChannels * 2, true); offset += 2;
+    view.setUint16(offset, 16, true); offset += 2;
+    writeString(view, offset, 'data'); offset += 4;
+    view.setUint32(offset, length - offset - 4, true); offset += 4;
+
+    const channels = [];
+    for (let i = 0; i < numChannels; i++) {
+        channels.push(buffer.getChannelData(i));
+    }
+
+    let pos = offset;
+    for (let i = 0; i < buffer.length; i++) {
+        for (let c = 0; c < numChannels; c++) {
+            let sample = Math.max(-1, Math.min(1, channels[c][i]));
+            view.setInt16(pos, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            pos += 2;
+        }
+    }
+
+    return new Blob([view], { type: 'audio/wav' });
+}
+
+async function apply_noise(audioBuffer, noiseLevel) {
+    if (noiseLevel > 0) {
+        for (let channel = 0; channel < audioBuffer.numberOfChannels; channel++) {
+            const data = audioBuffer.getChannelData(channel);
+            for (let i = 0; i < data.length; i++) {
+                data[i] += (Math.random() * 2 - 1) * noiseLevel * 0.01;
+            }
+        }
+    }
+    return audioBuffer;
+}
+
+async function apply_muffle(audioBuffer, audioCtx, lowPassCutoff) {
+    if (lowPassCutoff < audioCtx.sampleRate / 2) {
+        const offlineCtx = new OfflineAudioContext(
+            audioBuffer.numberOfChannels,
+            audioBuffer.length,
+            audioBuffer.sampleRate
+        );
+        const source = offlineCtx.createBufferSource();
+        source.buffer = audioBuffer;
+
+        const filter = offlineCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = lowPassCutoff;
+
+        source.connect(filter);
+        filter.connect(offlineCtx.destination);
+        source.start(0);
+
+        audioBuffer = await offlineCtx.startRendering();
+    }
+    return audioBuffer;
+}
+
+async function update_audio(json_data, pairs_index, noiseLevel = 0, lowPassCutoff = 550) {
     let pairs_audio = {};
     for (const [index, currentValue] of json_data["pairs"].entries()) {
         pairs_audio[index] = currentValue["soundData"];
     };
-    let sound_data = json_data["pairs"][pairs_index]["soundData"];
-    document.getElementById("pair-sound-player").src = "data:audio/ogg;base64," + sound_data;
+    let base64Audio = json_data["pairs"][pairs_index]["soundData"];
+
+    const audioData = Uint8Array.from(atob(base64Audio), c => c.charCodeAt(0)).buffer;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let audioBuffer = await audioCtx.decodeAudioData(audioData);
+
+    audioBuffer = await apply_noise(audioBuffer, noiseLevel);
+    audioBuffer = await apply_muffle(audioBuffer, audioCtx, lowPassCutoff);
+    const wavBlob = await audioBufferToWav(audioBuffer);
+
+    const url = URL.createObjectURL(wavBlob);
+    const audioElement = document.getElementById("pair-sound-player");
+    audioElement.src = url;
+    audioElement.load();
 }
 
 function set_pitch(json_data, pairs_index) {
@@ -285,13 +376,21 @@ async function fetch_random_pair() {
 
     current_correct_answer_button = Math.floor(Math.random() * (json_data["pairs"].length));
 
+    let add_noise = document.querySelector("#add-noise").checked;
+    let add_muffle = document.querySelector("#add-muffle").checked;
+
+    let noiseLevel = 0;
+    if (add_noise == true)noiseLevel = 2;
+    let lowPassCutoff = 22000;
+    if (add_muffle == true) lowPassCutoff = 500;
+
     let raw_pronunciation = json_data["pairs"][current_correct_answer_button]["rawPronunciation"];
     let accented_mora = json_data["pairs"][current_correct_answer_button]["accentedMora"];
     current_correct_answer = output_accent_plain_text(raw_pronunciation, accented_mora);
 
     document.getElementById("kana-text").innerHTML = json_data["kana"];
     update_answer_buttons(json_data, current_correct_answer_button);
-    update_audio(json_data, current_correct_answer_button);
+    await update_audio(json_data, current_correct_answer_button, noiseLevel, lowPassCutoff);
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
 }
