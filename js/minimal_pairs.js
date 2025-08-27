@@ -144,41 +144,42 @@ function update_answer_buttons(json_data, correct_answer_index) {
     };
 }
 
-async function audioBufferToWav(buffer) {
-    const numChannels = buffer.numberOfChannels;
-    const length = buffer.length * numChannels * 2 + 44;
-    const bufferArray = new ArrayBuffer(length);
-    const view = new DataView(bufferArray);
+async function audio_buffer_to_wav(buffer) {
+    const num_channels = buffer.numberOfChannels;
+    const length = buffer.length * num_channels * 2 + 44;
+    const buffer_array = new ArrayBuffer(length);
+    const view = new DataView(buffer_array);
 
-    function writeString(view, offset, string) {
+    function write_string(view, offset, string) {
         for (let i = 0; i < string.length; i++) {
             view.setUint8(offset + i, string.charCodeAt(i));
         }
     }
 
+    // WAV header followed by audio data
     let offset = 0;
-    writeString(view, offset, 'RIFF'); offset += 4;
+    write_string(view, offset, 'RIFF'); offset += 4;
     view.setUint32(offset, length - 8, true); offset += 4;
-    writeString(view, offset, 'WAVE'); offset += 4;
-    writeString(view, offset, 'fmt '); offset += 4;
+    write_string(view, offset, 'WAVE'); offset += 4;
+    write_string(view, offset, 'fmt '); offset += 4;
     view.setUint32(offset, 16, true); offset += 4;
     view.setUint16(offset, 1, true); offset += 2;
-    view.setUint16(offset, numChannels, true); offset += 2;
+    view.setUint16(offset, num_channels, true); offset += 2;
     view.setUint32(offset, buffer.sampleRate, true); offset += 4;
-    view.setUint32(offset, buffer.sampleRate * numChannels * 2, true); offset += 4;
-    view.setUint16(offset, numChannels * 2, true); offset += 2;
+    view.setUint32(offset, buffer.sampleRate * num_channels * 2, true); offset += 4;
+    view.setUint16(offset, num_channels * 2, true); offset += 2;
     view.setUint16(offset, 16, true); offset += 2;
-    writeString(view, offset, 'data'); offset += 4;
+    write_string(view, offset, 'data'); offset += 4;
     view.setUint32(offset, length - offset - 4, true); offset += 4;
 
     const channels = [];
-    for (let i = 0; i < numChannels; i++) {
+    for (let i = 0; i < num_channels; i++) {
         channels.push(buffer.getChannelData(i));
     }
 
     let pos = offset;
     for (let i = 0; i < buffer.length; i++) {
-        for (let c = 0; c < numChannels; c++) {
+        for (let c = 0; c < num_channels; c++) {
             let sample = Math.max(-1, Math.min(1, channels[c][i]));
             view.setInt16(pos, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
             pos += 2;
@@ -188,57 +189,58 @@ async function audioBufferToWav(buffer) {
     return new Blob([view], { type: 'audio/wav' });
 }
 
-async function apply_noise(audioBuffer, noiseLevel) {
-    if (noiseLevel > 0) {
-        for (let channel = 0; channel < audioBuffer.numberOfChannels; channel++) {
-            const data = audioBuffer.getChannelData(channel);
-            for (let i = 0; i < data.length; i++) {
-                data[i] += (Math.random() * 2 - 1) * noiseLevel * 0.01;
-            }
+async function apply_noise(audio_buffer) {
+    for (let channel = 0; channel < audio_buffer.numberOfChannels; channel++) {
+        const data = audio_buffer.getChannelData(channel);
+        for (let i = 0; i < data.length; i++) {
+            data[i] += (Math.random() * 2 - 1) * 0.02; // 0.02 scales the noise to an appropriate level.
         }
     }
-    return audioBuffer;
+    return audio_buffer;
 }
 
-async function apply_muffle(audioBuffer, audioCtx, lowPassCutoff) {
-    if (lowPassCutoff < audioCtx.sampleRate / 2) {
-        const offlineCtx = new OfflineAudioContext(
-            audioBuffer.numberOfChannels,
-            audioBuffer.length,
-            audioBuffer.sampleRate
-        );
-        const source = offlineCtx.createBufferSource();
-        source.buffer = audioBuffer;
+async function apply_muffle(audio_buffer, audio_context) {
+    const offline_context = new OfflineAudioContext(
+        audio_buffer.numberOfChannels,
+        audio_buffer.length,
+        audio_buffer.sampleRate
+    );
+    const source = offline_context.createBufferSource();
+    source.buffer = audio_buffer;
 
-        const filter = offlineCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.value = lowPassCutoff;
+    const filter = offline_context.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 500; // 500 Hz lowpass
 
-        source.connect(filter);
-        filter.connect(offlineCtx.destination);
-        source.start(0);
+    source.connect(filter);
+    filter.connect(offline_context.destination);
+    source.start(0);
 
-        audioBuffer = await offlineCtx.startRendering();
-    }
-    return audioBuffer;
+    audio_buffer = await offline_context.startRendering();
+    
+    return audio_buffer;
 }
 
-async function update_audio(json_data, pairs_index, noiseLevel = 0, lowPassCutoff = 550) {
+async function update_audio(json_data, pairs_index, add_noise, add_muffle) {
     let pairs_audio = {};
-    for (const [index, currentValue] of json_data["pairs"].entries()) {
-        pairs_audio[index] = currentValue["soundData"];
+    for (const [index, current_value] of json_data["pairs"].entries()) {
+        pairs_audio[index] = current_value["soundData"];
     };
-    let base64Audio = json_data["pairs"][pairs_index]["soundData"];
+    let base64_audio = json_data["pairs"][pairs_index]["soundData"];
 
-    const audioData = Uint8Array.from(atob(base64Audio), c => c.charCodeAt(0)).buffer;
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let audioBuffer = await audioCtx.decodeAudioData(audioData);
+    const audio_data = Uint8Array.from(atob(base64_audio), c => c.charCodeAt(0)).buffer;
+    const audio_context = new (window.AudioContext || window.webkitAudioContext)();
+    let audio_buffer = await audio_context.decodeAudioData(audio_data);
 
-    audioBuffer = await apply_noise(audioBuffer, noiseLevel);
-    audioBuffer = await apply_muffle(audioBuffer, audioCtx, lowPassCutoff);
-    const wavBlob = await audioBufferToWav(audioBuffer);
+    if (add_noise == true) {
+        audio_buffer = await apply_noise(audio_buffer);
+    }
+    if (add_muffle == true) {
+        audio_buffer = await apply_muffle(audio_buffer, audio_context);
+    }
+    const wav_blob = await audio_buffer_to_wav(audio_buffer);
 
-    const url = URL.createObjectURL(wavBlob);
+    const url = URL.createObjectURL(wav_blob);
     const audioElement = document.getElementById("pair-sound-player");
     audioElement.src = url;
     audioElement.load();
@@ -379,18 +381,13 @@ async function fetch_random_pair() {
     let add_noise = document.querySelector("#add-noise").checked;
     let add_muffle = document.querySelector("#add-muffle").checked;
 
-    let noiseLevel = 0;
-    if (add_noise == true)noiseLevel = 2;
-    let lowPassCutoff = 22000;
-    if (add_muffle == true) lowPassCutoff = 500;
-
     let raw_pronunciation = json_data["pairs"][current_correct_answer_button]["rawPronunciation"];
     let accented_mora = json_data["pairs"][current_correct_answer_button]["accentedMora"];
     current_correct_answer = output_accent_plain_text(raw_pronunciation, accented_mora);
 
     document.getElementById("kana-text").innerHTML = json_data["kana"];
     update_answer_buttons(json_data, current_correct_answer_button);
-    await update_audio(json_data, current_correct_answer_button, noiseLevel, lowPassCutoff);
+    await update_audio(json_data, current_correct_answer_button, add_noise, add_muffle);
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
 }
