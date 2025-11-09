@@ -34,6 +34,10 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - `Pause After Corrent Answer`: Disables automatically advancing to the next pair after a correct answer is submitted.
 
+- `Add white noise`: Adds white noise to the audio, making it tougher to hear.
+
+- `Muffle audio`: Muffles the audio, making it harder to hear.
+
 ## Shortcuts
 
 - `Answer buttons`: The keybind to use to click each answer button.
