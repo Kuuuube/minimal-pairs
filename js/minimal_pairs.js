@@ -232,11 +232,12 @@ async function update_audio(json_data, pairs_index, add_noise, add_muffle) {
     const audio_context = new (window.AudioContext || window.webkitAudioContext)();
     let audio_buffer = await audio_context.decodeAudioData(audio_data);
 
-    if (add_noise == true) {
-        audio_buffer = await apply_noise(audio_buffer);
-    }
+    // add_muffle must come before add_noise
     if (add_muffle == true) {
         audio_buffer = await apply_muffle(audio_buffer, audio_context);
+    }
+    if (add_noise == true) {
+        audio_buffer = await apply_noise(audio_buffer);
     }
     const wav_blob = await audio_buffer_to_wav(audio_buffer);
 
