@@ -36,7 +36,7 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - `Add white noise`: Adds white noise to the audio, making it tougher to hear.
 
-- `Muffle audio`: Muffles the audio, making it tougher to hear.
+- `Muffle audio`: Muffles the audio, making it harder to hear.
 
 ## Shortcuts
 
