@@ -38,8 +38,6 @@ A backup of the コツ minimal pairs test. The original [minimal pairs test](htt
 
 - `Muffle audio`: Muffles the audio, making it tougher to hear.
 
-    Note: The noise and muffle options are designed to mimic the original kotu site. In theory they are meant to more closely mimic trickier real-world listening situations, but I'm not sure if they're actually that effective for a learning tool.
-
 ## Shortcuts
 
 - `Answer buttons`: The keybind to use to click each answer button.
