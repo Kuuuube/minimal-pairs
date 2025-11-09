@@ -5,6 +5,7 @@ let test_started = false;
 let current_correct_answer_button = -1;
 let current_correct_answer = "";
 let active_pitch_type = "";
+let current_audio_data = null;
 
 let heiban_count = 0;
 let correct_heiban_count = 0;
@@ -376,13 +377,11 @@ async function fetch_random_pair() {
         return;
     }
     const json_data = json_data_raw.json_data;
+    current_audio_data = json_data;
 
     current_correct_answer_button = Math.floor(Math.random() * (json_data["pairs"].length));
 
-    let noise_amount = document.querySelector("#add-noise").checked ? document.querySelector("#noise-amount").value : null;
-    // invert muffle_amount slider
-    let muffle_amount_input = document.querySelector("#muffle-amount");
-    let muffle_amount = document.querySelector("#add-muffle").checked ? muffle_amount_input.max - (muffle_amount_input.value - muffle_amount_input.min) : null;
+    const {noise_amount, muffle_amount} = get_audio_modifiers();
 
     let raw_pronunciation = json_data["pairs"][current_correct_answer_button]["rawPronunciation"];
     let accented_mora = json_data["pairs"][current_correct_answer_button]["accentedMora"];
@@ -393,6 +392,14 @@ async function fetch_random_pair() {
     await update_audio(json_data, current_correct_answer_button, noise_amount, muffle_amount);
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
+}
+
+function get_audio_modifiers() {
+    let noise_amount = document.querySelector("#add-noise").checked ? document.querySelector("#noise-amount").value : null;
+    // invert muffle_amount slider
+    let muffle_amount_input = document.querySelector("#muffle-amount");
+    let muffle_amount = document.querySelector("#add-muffle").checked ? muffle_amount_input.max - (muffle_amount_input.value - muffle_amount_input.min) : null;
+    return {noise_amount, muffle_amount};
 }
 
 function click_answer_button(index) {
@@ -417,6 +424,16 @@ for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
         if (test_started) {
             prefetched_audio_json = null;
             fetch_random_pair();
+        }
+    });
+}
+for (const element of document.querySelectorAll(".refresh-audio-checkbox")) {
+    element.addEventListener("click", async () => {
+        if (test_started) {
+            if (current_audio_data) {
+                const {noise_amount, muffle_amount} = get_audio_modifiers();
+                await update_audio(current_audio_data, current_correct_answer_button, noise_amount, muffle_amount);
+            }
         }
     });
 }
