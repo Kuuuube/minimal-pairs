@@ -189,17 +189,17 @@ async function audio_buffer_to_wav(buffer) {
     return new Blob([view], { type: 'audio/wav' });
 }
 
-async function apply_noise(audio_buffer) {
+async function apply_noise(noise_amount, audio_buffer) {
     for (let channel = 0; channel < audio_buffer.numberOfChannels; channel++) {
         const data = audio_buffer.getChannelData(channel);
         for (let i = 0; i < data.length; i++) {
-            data[i] += (Math.random() * 2 - 1) * 0.02; // 0.02 scales the noise to an appropriate level.
+            data[i] += (Math.random() * 2 - 1) * noise_amount; // default 0.02 scales the noise to an appropriate level.
         }
     }
     return audio_buffer;
 }
 
-async function apply_muffle(audio_buffer, audio_context) {
+async function apply_muffle(muffle_amount, audio_buffer) {
     const offline_context = new OfflineAudioContext(
         audio_buffer.numberOfChannels,
         audio_buffer.length,
@@ -210,7 +210,7 @@ async function apply_muffle(audio_buffer, audio_context) {
 
     const filter = offline_context.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.value = 500; // 500 Hz lowpass
+    filter.frequency.value = muffle_amount; // default 500 Hz lowpass
 
     source.connect(filter);
     filter.connect(offline_context.destination);
@@ -221,7 +221,7 @@ async function apply_muffle(audio_buffer, audio_context) {
     return audio_buffer;
 }
 
-async function update_audio(json_data, pairs_index, add_noise, add_muffle) {
+async function update_audio(json_data, pairs_index, noise_amount, muffle_amount) {
     let pairs_audio = {};
     for (const [index, current_value] of json_data["pairs"].entries()) {
         pairs_audio[index] = current_value["soundData"];
@@ -232,12 +232,12 @@ async function update_audio(json_data, pairs_index, add_noise, add_muffle) {
     const audio_context = new (window.AudioContext || window.webkitAudioContext)();
     let audio_buffer = await audio_context.decodeAudioData(audio_data);
 
-    // add_muffle must come before add_noise
-    if (add_muffle == true) {
-        audio_buffer = await apply_muffle(audio_buffer, audio_context);
+    // muffle must come before add_noise
+    if (muffle_amount) {
+        audio_buffer = await apply_muffle(muffle_amount, audio_buffer);
     }
-    if (add_noise == true) {
-        audio_buffer = await apply_noise(audio_buffer);
+    if (noise_amount) {
+        audio_buffer = await apply_noise(noise_amount, audio_buffer);
     }
     const wav_blob = await audio_buffer_to_wav(audio_buffer);
 
@@ -379,8 +379,10 @@ async function fetch_random_pair() {
 
     current_correct_answer_button = Math.floor(Math.random() * (json_data["pairs"].length));
 
-    let add_noise = document.querySelector("#add-noise").checked;
-    let add_muffle = document.querySelector("#add-muffle").checked;
+    let noise_amount = document.querySelector("#add-noise").checked ? document.querySelector("#noise-amount").value : null;
+    // invert muffle_amount slider
+    let muffle_amount_input = document.querySelector("#muffle-amount");
+    let muffle_amount = document.querySelector("#add-muffle").checked ? muffle_amount_input.max - (muffle_amount_input.value - muffle_amount_input.min) : null;
 
     let raw_pronunciation = json_data["pairs"][current_correct_answer_button]["rawPronunciation"];
     let accented_mora = json_data["pairs"][current_correct_answer_button]["accentedMora"];
@@ -388,7 +390,7 @@ async function fetch_random_pair() {
 
     document.getElementById("kana-text").innerHTML = json_data["kana"];
     update_answer_buttons(json_data, current_correct_answer_button);
-    await update_audio(json_data, current_correct_answer_button, add_noise, add_muffle);
+    await update_audio(json_data, current_correct_answer_button, noise_amount, muffle_amount);
     set_pitch(json_data, current_correct_answer_button);
     hide_continue_button();
 }

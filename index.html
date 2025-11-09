@@ -175,8 +175,14 @@
                         <label for="add-noise" class="text-muted">Add white noise</label>
                     </div>
                     <div class="options-group">
+                        <input id="noise-amount" type="range" min="0.01" max="0.1" value="0.02" step="any">
+                    </div>
+                    <div class="options-group">
                         <input type="checkbox" class="form-check-input me-2 form-check-inline pair-checkbox-input refresh-pair-checkbox" id="add-muffle">
                         <label for="add-muffle" class="text-muted">Muffle audio</label>
+                    </div>
+                    <div class="options-group">
+                        <input id="muffle-amount" type="range" min="100" max="900" value="500">
                     </div>
                 </div>
                 <div>
