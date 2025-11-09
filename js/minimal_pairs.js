@@ -427,8 +427,8 @@ for (const element of document.querySelectorAll(".refresh-pair-checkbox")) {
         }
     });
 }
-for (const element of document.querySelectorAll(".refresh-audio-checkbox")) {
-    element.addEventListener("click", async () => {
+for (const element of document.querySelectorAll(".refresh-audio-input")) {
+    element.addEventListener("change", async () => {
         if (test_started) {
             if (current_audio_data) {
                 const {noise_amount, muffle_amount} = get_audio_modifiers();
