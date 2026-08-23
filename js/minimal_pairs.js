@@ -64,13 +64,11 @@ function submit_answer(answer) {
     if (answer === current_correct_answer_button) {
         is_correct_answer = true;
     }
-  if (document.getElementById("play-after-incorrect").checked && is_correct_answer === false) {
-        const audioId = document.querySelector('.btn-danger').closest('.col.d-grid').querySelector('audio').id;
-        const audio_player = document.getElementById(audioId);
+    if (document.querySelector("#play-after-incorrect").checked && !is_correct_answer) {
+        const audio_player = document.querySelector("#audio_index_" + answer);
         audio_player.pause();
         audio_player.currentTime = 0;
         audio_player.play();
-
     }
     update_answer_stats(active_pitch_type, is_correct_answer);
     update_history(current_correct_answer, is_correct_answer);
